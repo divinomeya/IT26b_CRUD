@@ -4,6 +4,10 @@
  */
 package midterm;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Acer
@@ -81,6 +85,11 @@ public class signup extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(242, 242, 242));
         jButton1.setText("SIGN UP");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -149,6 +158,35 @@ public class signup extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+          private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+
+        String name = jTextField1.getText();
+        String email = jTextField2.getText();
+        String password = new String(jPasswordField1.getPassword());
+
+    try {
+        Connection conn = ConnectionDB.getConnection();
+    
+        String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        PreparedStatement pst = conn.prepareStatement(sql);
+    
+        pst.setString(1, name);
+        pst.setString(2, email);
+        pst.setString(3, password);
+    
+        pst.executeUpdate();
+    
+        JOptionPane.showMessageDialog(null, "Account Created Successfully!");
+    
+    } catch (Exception e) {
+    e.printStackTrace();
+    }
+
+    }      
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
